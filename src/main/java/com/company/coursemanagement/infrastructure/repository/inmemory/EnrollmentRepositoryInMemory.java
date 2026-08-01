@@ -1,0 +1,69 @@
+package com.company.coursemanagement.infrastructure.repository.inmemory;
+
+import com.company.coursemanagement.domain.exception.EnrollmentNotFoundException;
+
+import com.company.coursemanagement.domain.model.Enrollment;
+
+import com.company.coursemanagement.domain.repository.EnrollmentRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
+    private final List<Enrollment> enrollments = new ArrayList<>();
+
+    public Enrollment save(Enrollment enrollment) {
+
+        enrollments.add(enrollment);
+
+        return enrollment;
+    }
+
+    @Override
+    public Enrollment findById(Long id) {
+
+        for (Enrollment enrollment : enrollments) {
+            if (enrollment.getId().equals(id)) {
+                return enrollment;
+            }
+        }
+
+        throw  new EnrollmentNotFoundException(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+        Enrollment enrollment = findById(id);
+
+        enrollments.remove(enrollment);
+
+
+    }
+
+    @Override
+    public Enrollment update(Enrollment enrollment) {
+
+        for (Enrollment e : enrollments ) {
+
+            if (e.getId().equals(enrollment.getId())) {
+
+                e.setStudentId(enrollment.getStudentId());
+                e.setCourseId(enrollment.getCourseId());
+                e.setEnrollmentDate(enrollment.getEnrollmentDate());
+                e.setStatus(enrollment.getStatus());
+
+
+                return e;
+            }
+
+        }
+
+        throw new EnrollmentNotFoundException(enrollment.getId());
+    }
+
+    @Override
+    public List<Enrollment> findAll() {
+        return enrollments;
+    }
+}
