@@ -5,7 +5,7 @@ import com.company.coursemanagement.domain.repository.StudentRepository;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 public class StudentRepositoryInMemory implements StudentRepository {
@@ -21,21 +21,21 @@ public class StudentRepositoryInMemory implements StudentRepository {
     }
 
     @Override
-    public Student findById(Long id) {
+    public Optional<Student> findById(Long id) {
 
         for (Student student : students) {
             if (student.getId().equals(id)) {
-                return student;
+                return Optional.of(student);
             }
         }
 
-      throw  new StudentNotFoundException(id);
+      return  Optional.empty();
     }
 
     @Override
     public void deleteById(Long id) {
-
-        Student student = findById(id);
+         Student student = findById(id)
+        .orElseThrow(() -> new StudentNotFoundException(id));
 
         students.remove(student);
 
@@ -64,5 +64,10 @@ public class StudentRepositoryInMemory implements StudentRepository {
     @Override
     public List<Student> findAll() {
         return students;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return findById(id).isPresent();
     }
 }

@@ -1,5 +1,6 @@
 package com.company.coursemanagement.infrastructure.repository.inmemory;
 
+
 import com.company.coursemanagement.domain.exception.EnrollmentNotFoundException;
 
 import com.company.coursemanagement.domain.model.Enrollment;
@@ -8,6 +9,7 @@ import com.company.coursemanagement.domain.repository.EnrollmentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
     private final List<Enrollment> enrollments = new ArrayList<>();
@@ -20,21 +22,23 @@ public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
     }
 
     @Override
-    public Enrollment findById(Long id) {
+    public Optional<Enrollment> findById(Long id) {
 
         for (Enrollment enrollment : enrollments) {
             if (enrollment.getId().equals(id)) {
-                return enrollment;
+                return Optional.of(enrollment);
             }
         }
 
-        throw  new EnrollmentNotFoundException(id);
+    return  Optional.empty();
     }
 
     @Override
     public void deleteById(Long id) {
 
-        Enrollment enrollment = findById(id);
+        Enrollment enrollment = findById(id)
+          .orElseThrow(() -> new EnrollmentNotFoundException(id));
+
 
         enrollments.remove(enrollment);
 
@@ -65,5 +69,10 @@ public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
     @Override
     public List<Enrollment> findAll() {
         return enrollments;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return findById(id).isPresent();
     }
 }

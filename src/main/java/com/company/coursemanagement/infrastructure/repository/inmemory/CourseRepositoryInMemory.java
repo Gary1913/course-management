@@ -8,6 +8,7 @@ import com.company.coursemanagement.domain.repository.CourseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CourseRepositoryInMemory implements CourseRepository {
     private final List<Course> courses = new ArrayList<>();
@@ -21,20 +22,21 @@ public class CourseRepositoryInMemory implements CourseRepository {
     }
 
     @Override
-    public Course findById(Long id) {
+    public Optional<Course> findById(Long id) {
         for (Course course : courses) {
         if (course.getId().equals(id)) {
-            return course;
+            return Optional.of(course);
         }
     }
 
-        throw  new CourseNotFoundException(id);
+        return Optional.empty();
     }
 
     @Override
     public void deleteById(Long id) {
 
-        Course course = findById(id);
+        Course course = findById(id)
+        .orElseThrow(() -> new CourseNotFoundException(id));
 
         courses.remove(course);
 
@@ -65,5 +67,10 @@ public class CourseRepositoryInMemory implements CourseRepository {
     @Override
     public List<Course> findAll() {
         return courses;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return findById(id).isPresent();
     }
 }

@@ -5,6 +5,7 @@ import com.company.coursemanagement.domain.model.Enrollment;
 import com.company.coursemanagement.domain.repository.EnrollmentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class EnrollmentServiceImpl implements EnrollmentService {
 
@@ -21,7 +22,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public Enrollment findById(Long id) {
+    public Optional<Enrollment> findById(Long id) {
         return enrollmentRepository.findById(id);
     }
 
@@ -39,5 +40,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     @Override
     public List<Enrollment> findAll() {
         return enrollmentRepository.findAll();
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return enrollmentRepository.existsById(id);
     }
 }
