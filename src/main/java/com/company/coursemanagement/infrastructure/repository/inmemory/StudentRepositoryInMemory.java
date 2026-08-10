@@ -3,14 +3,43 @@ package com.company.coursemanagement.infrastructure.repository.inmemory;
 import com.company.coursemanagement.domain.model.Student;
 import com.company.coursemanagement.domain.repository.StudentRepository;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 public class StudentRepositoryInMemory implements StudentRepository {
 
     private final List<Student> students = new ArrayList<>();
+
+    StudentRepositoryInMemory() {
+
+        students.add(new Student(
+
+                1L,
+                "Juan",
+                "Perez",
+                "juan@gmail.com",
+                LocalDate.of(2000,5,10)
+        ));
+
+        students.add(new Student(
+                2L,
+                "Ana",
+                "Gomez",
+                "ana@gmail.com",
+                LocalDate.of(2001,8,20)
+        ));
+        students.add(new Student(
+                3L,
+                "Carlos",
+                "Ruiz",
+                "carlos@gmail.com",
+                LocalDate.of(1999,12,15)
+        ));
+    }
 
     @Override
     public Student save(Student student) {
@@ -21,21 +50,21 @@ public class StudentRepositoryInMemory implements StudentRepository {
     }
 
     @Override
-    public Student findById(Long id) {
+    public Optional<Student> findById(Long id) {
 
         for (Student student : students) {
             if (student.getId().equals(id)) {
-                return student;
+                return Optional.of(student);
             }
         }
 
-      throw  new StudentNotFoundException(id);
+      return  Optional.empty();
     }
 
     @Override
     public void deleteById(Long id) {
-
-        Student student = findById(id);
+         Student student = findById(id)
+        .orElseThrow(() -> new StudentNotFoundException(id));
 
         students.remove(student);
 
@@ -64,5 +93,10 @@ public class StudentRepositoryInMemory implements StudentRepository {
     @Override
     public List<Student> findAll() {
         return students;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return findById(id).isPresent();
     }
 }

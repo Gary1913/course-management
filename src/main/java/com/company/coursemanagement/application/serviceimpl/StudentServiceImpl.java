@@ -5,6 +5,7 @@ import com.company.coursemanagement.domain.model.Student;
 import com.company.coursemanagement.domain.repository.StudentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -20,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(Long id) {
+    public Optional<Student> findById(Long id) {
         return studentRepository.findById(id);
     }
 
@@ -38,5 +39,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findAll() {
         return studentRepository.findAll();
+    }
+
+
+    @Override
+    public boolean existsById(Long id) {
+        return studentRepository.existsById(id);
     }
 }

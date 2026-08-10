@@ -5,10 +5,12 @@ import com.company.coursemanagement.domain.model.Course;
 import com.company.coursemanagement.domain.repository.CourseRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CourseServiceImpl  implements CourseService {
 
     private final CourseRepository courseRepository;
+
     public CourseServiceImpl(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
@@ -19,7 +21,7 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public Course findById(Long id) {
+    public Optional<Course> findById(Long id) {
         return courseRepository.findById(id);
     }
 
@@ -37,4 +39,10 @@ public class CourseServiceImpl  implements CourseService {
     public List<Course> findAll() {
         return courseRepository.findAll();
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return courseRepository.existsById(id);
+    }
+
 }
