@@ -3,6 +3,8 @@ package com.company.coursemanagement.infrastructure.repository.inmemory;
 import com.company.coursemanagement.domain.model.Student;
 import com.company.coursemanagement.domain.repository.StudentRepository;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +13,33 @@ import java.util.Optional;
 public class StudentRepositoryInMemory implements StudentRepository {
 
     private final List<Student> students = new ArrayList<>();
+
+    StudentRepositoryInMemory() {
+
+        students.add(new Student(
+
+                1L,
+                "Juan",
+                "Perez",
+                "juan@gmail.com",
+                LocalDate.of(2000,5,10)
+        ));
+
+        students.add(new Student(
+                2L,
+                "Ana",
+                "Gomez",
+                "ana@gmail.com",
+                LocalDate.of(2001,8,20)
+        ));
+        students.add(new Student(
+                3L,
+                "Carlos",
+                "Ruiz",
+                "carlos@gmail.com",
+                LocalDate.of(1999,12,15)
+        ));
+    }
 
     @Override
     public Student save(Student student) {
