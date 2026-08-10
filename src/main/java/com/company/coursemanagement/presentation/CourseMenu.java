@@ -45,14 +45,15 @@ public class CourseMenu {
 
                 case 3:
                     System.out.println("List All Courses");
+                    for (Course c : courseService.findAll()) {
+                        System.out.println(c);
+                    }
                     break;
 
                 case 4:
                     System.out.println("Update Course");
 
-                    for (Course c : courseService.findAll()) {
-                        System.out.println(c);
-                    }
+
                     break;
 
                 case 5:
