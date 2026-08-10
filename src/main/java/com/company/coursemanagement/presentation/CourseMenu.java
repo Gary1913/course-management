@@ -49,6 +49,10 @@ public class CourseMenu {
 
                 case 4:
                     System.out.println("Update Course");
+
+                    for (Course c : courseService.findAll()) {
+                        System.out.println(c);
+                    }
                     break;
 
                 case 5:

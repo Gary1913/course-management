@@ -1,6 +1,7 @@
 package com.company.coursemanagement.presentation;
 
 import com.company.coursemanagement.application.service.EnrollmentService;
+import com.company.coursemanagement.domain.model.Enrollment;
 
 import java.util.Scanner;
 
@@ -44,6 +45,9 @@ public class EnrollmentMenu {
 
                 case 3:
                     System.out.println("List All Enrollments");
+                    for(Enrollment e : enrollmentService.findAll()) {
+                        System.out.println(e);
+                    }
                     break;
 
                 case 4:

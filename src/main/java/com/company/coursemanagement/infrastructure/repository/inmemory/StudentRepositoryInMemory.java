@@ -14,7 +14,7 @@ public class StudentRepositoryInMemory implements StudentRepository {
 
     private final List<Student> students = new ArrayList<>();
 
-    StudentRepositoryInMemory() {
+    public StudentRepositoryInMemory() {
 
         students.add(new Student(
 
