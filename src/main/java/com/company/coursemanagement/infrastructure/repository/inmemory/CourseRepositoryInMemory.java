@@ -15,28 +15,8 @@ public class CourseRepositoryInMemory implements CourseRepository {
 
     public CourseRepositoryInMemory() {
 
-        courses.add(new Course(
-                1L,
-                "JAVA-101",
-                "Java Fundamentals",
-                "Introduction to Java programming ",
-                30
-        ));
 
-        courses.add(new Course(
-                2L,
-                "SPR-201",
-                "Spring Boot",
-                "Development of REST API with Spring Boot",
-                25
-        ));
-        courses.add(new Course(
-                3L,
-                "DB-301",
-                "Databases",
-                "Relational databases with MySQL",
-                35
-        ));
+
     }
 
     @Override

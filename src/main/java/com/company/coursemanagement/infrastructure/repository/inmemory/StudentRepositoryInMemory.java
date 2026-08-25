@@ -16,29 +16,6 @@ public class StudentRepositoryInMemory implements StudentRepository {
 
     public StudentRepositoryInMemory() {
 
-        students.add(new Student(
-
-                1L,
-                "Juan",
-                "Perez",
-                "juan@gmail.com",
-                LocalDate.of(2000,5,10)
-        ));
-
-        students.add(new Student(
-                2L,
-                "Ana",
-                "Gomez",
-                "ana@gmail.com",
-                LocalDate.of(2001,8,20)
-        ));
-        students.add(new Student(
-                3L,
-                "Carlos",
-                "Ruiz",
-                "carlos@gmail.com",
-                LocalDate.of(1999,12,15)
-        ));
     }
 
     @Override

@@ -18,31 +18,8 @@ public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
 
     public EnrollmentRepositoryInMemory() {
 
-        enrollments.add(new Enrollment(
-                1L,
-                1L,
-                1L,
-                LocalDate.now(),
-                EnrollmentStatus.ACTIVE
 
-        ));
 
-        enrollments.add(new Enrollment(
-                2L,
-                2L,
-                2L,
-                LocalDate.now(),
-                EnrollmentStatus.ACTIVE
-        ));
-
-        enrollments.add(new Enrollment(
-                3L,
-                3L,
-                3L,
-                LocalDate.now(),
-                EnrollmentStatus.ACTIVE
-
-        ));
 
 
     }
@@ -85,8 +62,8 @@ public class EnrollmentRepositoryInMemory  implements EnrollmentRepository {
 
             if (e.getId().equals(enrollment.getId())) {
 
-                e.setStudentId(enrollment.getStudentId());
-                e.setCourseId(enrollment.getCourseId());
+                e.setStudent(enrollment.getStudent());
+                e.setCourse(enrollment.getCourse());
                 e.setEnrollmentDate(enrollment.getEnrollmentDate());
                 e.setStatus(enrollment.getStatus());
 
